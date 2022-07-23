@@ -6,20 +6,62 @@ import LinkButton from '../../components/common/LinkButton';
 import LongButton from '../../components/common/LongButton';
 import { StyleSheet } from 'react-native';
 import { Center, Heading } from 'native-base';
-import { loginText } from './defaultText';
+import { loginText } from '../../utils/defaultText';
 import { sizes } from '../../utils/sizes';
 import {colors} from '../../utils/colors';
+import { validate } from '../../utils/validations';
 
 export default function EmailForm({handleChangeLoginType}) {
    const [uiLoading, setUiLoading] = useState(true)
+   const [inputError, setInputError] = useState({
+      isError: false,
+      message: '',
+      inputName: ''
+   })
+   const [emailFormInput, setEmailFormInput] = useState({
+      email: ''
+   })
    useEffect(()=> {
       const resetUiLoading = setTimeout(() => {
          setUiLoading(false)
       }, 2000);
+      setInputError({
+         isError: false,
+         message: '',
+         inputName: ''
+      })
       return () => {
          clearTimeout(resetUiLoading)
       }
    }, [])
+   useEffect(() => {
+      setInputError({
+         isError: false,
+         message: '',
+         inputName: ''
+      })
+   }, [emailFormInput])
+   
+   const handleOnChangeText =(value, name)=> {
+      setEmailFormInput({
+         email: value
+      })
+   }
+
+   const handleOnEmailContinue =()=> {
+      const validation = validate(emailFormInput)
+      if(validation.validate){
+         handleChangeLoginType('set password')
+      } else {
+         setInputError({
+            isError: true,
+            message: validation.message,
+            inputName: validation.input
+         })
+      }
+   }
+
+
 
   return (
    <View style={styles.loginForm__container}>
@@ -33,11 +75,26 @@ export default function EmailForm({handleChangeLoginType}) {
                   {loginText.wellcomeEmail}
                </Text>
             </Center>
-            <Input placeholder='Enter email address' sx={{marginBottom: 20}} />
+            <Input 
+               name="email" 
+               placeholder='Enter email address' 
+               sx={{marginBottom: 20}}
+               onChangeText={handleOnChangeText}
+               error={inputError}  
+               value={emailFormInput.email}
+            />
          </View>
          <View>
-            <LongButton title="continue" sx={{marginBottom: 25}} />
-            <LinkButton onPress={() => handleChangeLoginType('login')} title="Already have an account?" sx={{alignItems: 'center'}} />
+            <LongButton 
+               onPress={handleOnEmailContinue} 
+               title="continue" 
+               sx={{marginBottom: 25}} 
+            />
+            <LinkButton 
+               onPress={() => handleChangeLoginType('login')} 
+               title="Already have an account?" 
+               sx={{alignItems: 'center'}} 
+            />
          </View>
          </View>
       }

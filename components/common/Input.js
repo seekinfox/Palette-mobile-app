@@ -9,18 +9,29 @@ export default function Input({
    placeholder, 
    onChangeText,
    keyboardType,
-   sx
+   sx,
+   name,
+   secureTextEntry,
+   error,
+   value,
 }) {
 
   return (
       <TextInput 
          editable={editable}
          autoComplete={autoComplete}
-         style={{...styles.InputText, ...sx}} 
-         placeholder={placeholder} 
-         onChangeText={onChangeText}
+         style={{
+            ...styles.InputText, 
+            ...sx, 
+            borderColor: (error?.inputName === name && error?.isError) ? colors.redOff : colors.blackOff,
+         }} 
+         placeholder={(error?.inputName === name && error?.isError) ? error?.message : placeholder} 
+         onChangeText={(value) => onChangeText(value, name)}
          keyboardType={keyboardType}
-         placeholderTextColor={colors.blackOff}
+         placeholderTextColor={ (error?.inputName === name && error?.isError) ? colors.redOff :colors.blackOff}
+         name={name}
+         secureTextEntry={secureTextEntry}
+         value={error?.isError ? '': value}
       />
   )
 }
@@ -28,7 +39,6 @@ export default function Input({
 const styles = StyleSheet.create({
    InputText: {
       borderWidth: 2,
-      borderColor: colors.blackOff,
       padding:10,
       paddingHorizontal: 15,
       width: sizes.longInput,

@@ -5,17 +5,65 @@ import LongButton from '../../components/common/LongButton'
 import LinkButton from '../../components/common/LinkButton'
 import { Center } from 'native-base'
 import Loading from '../../components/common/Loading'
+import { validate } from '../../utils/validations'
 
 export default function LoginForm({handleChangeLoginType}) {
    const [uiLoading, setUiLoading] = useState(true)
+   //input body
+   const [loginInputBody, setLoginInputBody] = useState({
+      email: '',
+      password: ''
+   })
+   const [inputError, setInputError] = useState({
+      isError: false,
+      message: '',
+      inputName: ''
+   })
+
    useEffect(()=> {
       const resetUiLoading = setTimeout(() => {
          setUiLoading(false)
       }, 2000);
+      setInputError({
+         isError: false,
+         message: '',
+         inputName: ''
+      })
       return () => {
          clearTimeout(resetUiLoading)
       }
    }, [])
+
+   useEffect(() => {
+      setInputError({
+         isError: false,
+         message: '',
+         inputName: ''
+      })
+   }, [loginInputBody])
+   
+
+   const handleOnChangeText =(value, name)=> {
+      setLoginInputBody({
+         ...loginInputBody,
+         [name]: value
+      })
+   }
+
+   const handleLogin =()=> {
+      let validation = validate(loginInputBody)
+      if(validation.validate){
+         //something
+      } else {
+         setInputError({
+            isError: true,
+            message: validation.message,
+            inputName: validation.input
+         })
+      }
+   }
+
+
 
   return (
    <View style={styles.loginForm__container}>
@@ -23,12 +71,30 @@ export default function LoginForm({handleChangeLoginType}) {
          uiLoading ? <Loading /> :
          <View>
          <View style={styles.loginForm__innerOne}>
-            <Input placeholder='Enter email address' sx={{marginBottom: 20}} />
-            <Input placeholder='Enter password' sx={{marginBottom: 20}} />
+            <Input 
+               name='email' 
+               onChangeText={handleOnChangeText} 
+               placeholder='Enter email address' 
+               sx={{marginBottom: 20}} 
+               error={inputError}
+               value={loginInputBody.email}
+               />
+            <Input 
+               name='password' 
+               placeholder='Enter password' 
+               sx={{marginBottom: 20}} 
+               onChangeText={handleOnChangeText} 
+               secureTextEntry={true}
+               error={inputError}
+               value={loginInputBody.password}
+            />
             <LinkButton title="Forgot Password?" sx={{alignSelf: 'flex-end'}} />
          </View>
          <View>
-            <LongButton title="Log in" sx={{marginBottom: 25}} />
+            <LongButton 
+               onPress={handleLogin}
+               title="Log in" 
+               sx={{marginBottom: 25}} />
             <LongButton onPress={() => handleChangeLoginType('new')} variant='outlined' title="New user" />
          </View>
          </View>
