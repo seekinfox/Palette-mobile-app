@@ -7,6 +7,8 @@ import { commonImages, logo } from '../../utils/images'
 import Input from '../../components/common/Input'
 import LoginForm from './LoginForm'
 import EmailForm from './EmailForm'
+import ForgotPassword from './ForgotPassword'
+import { LoginType } from '../../utils/defaultText'
 export default function Login() {
 const [isLoginType, setIsLoginType] = useState('login')
 const handleChangeLoginType = (type) => {
@@ -20,16 +22,20 @@ const handleChangeLoginType = (type) => {
             <Image source={logo} alt="palette logo" />
          </View>
          {
-            (isLoginType === "login") ? 
+            (isLoginType === LoginType.LOGIN) ? 
                <LoginForm 
                   handleChangeLoginType={handleChangeLoginType} 
                /> :
-            (isLoginType === 'new') ? 
+            (isLoginType === LoginType.NEW_USER) ? 
                <EmailForm 
-                  handleChangeLoginType={handleChangeLoginType} /> :
-            (isLoginType === 'set password') ? 
-               <></> :
-            <></>
+                  handleChangeLoginType={handleChangeLoginType} 
+               /> :  
+               (isLoginType === LoginType.FORGOT_PASSWORD) ?
+               <ForgotPassword 
+                  handleChangeLoginType={handleChangeLoginType} 
+               />
+                  :
+               <Center>Error finding the screen</Center>
          }
     </Center>
    </TouchableWithoutFeedback>

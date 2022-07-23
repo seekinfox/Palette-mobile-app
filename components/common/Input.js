@@ -31,7 +31,7 @@ export default function Input({
          placeholderTextColor={ (error?.inputName === name && error?.isError) ? colors.redOff :colors.blackOff}
          name={name}
          secureTextEntry={secureTextEntry}
-         value={error?.isError ? '': value}
+         value={error?.inputName === name && error?.isError ? '': value}
       />
   )
 }

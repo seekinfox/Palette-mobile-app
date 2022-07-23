@@ -6,6 +6,7 @@ import LinkButton from '../../components/common/LinkButton'
 import { Center } from 'native-base'
 import Loading from '../../components/common/Loading'
 import { validate } from '../../utils/validations'
+import { LoginType } from '../../utils/defaultText'
 
 export default function LoginForm({handleChangeLoginType}) {
    const [uiLoading, setUiLoading] = useState(true)
@@ -88,14 +89,18 @@ export default function LoginForm({handleChangeLoginType}) {
                error={inputError}
                value={loginInputBody.password}
             />
-            <LinkButton title="Forgot Password?" sx={{alignSelf: 'flex-end'}} />
+            <LinkButton 
+               onPress={() => handleChangeLoginType(LoginType.FORGOT_PASSWORD)} 
+               title="Forgot Password?" 
+               sx={{alignSelf: 'flex-end'}} 
+            />
          </View>
          <View>
             <LongButton 
                onPress={handleLogin}
                title="Log in" 
                sx={{marginBottom: 25}} />
-            <LongButton onPress={() => handleChangeLoginType('new')} variant='outlined' title="New user" />
+            <LongButton onPress={() => handleChangeLoginType(LoginType.NEW_USER)} variant='outlined' title="New user" />
          </View>
          </View>
       }

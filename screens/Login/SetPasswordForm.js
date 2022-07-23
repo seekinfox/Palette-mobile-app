@@ -10,18 +10,17 @@ import { loginText, LoginType } from '../../utils/defaultText';
 import { sizes } from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import { validate } from '../../utils/validations';
-import SetPasswordForm from './SetPasswordForm';
 
-export default function EmailForm({handleChangeLoginType}) {
-   const [loginType, setLoginType] = useState('')
+export default function SetPasswordForm({email, handleChangeLoginType}) {
    const [uiLoading, setUiLoading] = useState(true)
    const [inputError, setInputError] = useState({
       isError: false,
       message: '',
       inputName: ''
    })
-   const [emailFormInput, setEmailFormInput] = useState({
-      email: ''
+   const [passwordInput, setpasswordInput] = useState({
+      newPassword: '',
+      confirmPassword: ''
    })
    useEffect(()=> {
       const resetUiLoading = setTimeout(() => {
@@ -42,25 +41,17 @@ export default function EmailForm({handleChangeLoginType}) {
          message: '',
          inputName: ''
       })
-   }, [emailFormInput])
+   }, [passwordInput])
    
    const handleOnChangeText =(value, name)=> {
-      setEmailFormInput({
-         email: value
+      setpasswordInput({
+         ...passwordInput,
+         [name]: value
       })
    }
 
-   const handleOnEmailContinue =()=> {
-      const validation = validate(emailFormInput)
-      if(validation.validate){
-         setLoginType(LoginType.SET_PASSWORD)
-      } else {
-         setInputError({
-            isError: true,
-            message: validation.message,
-            inputName: validation.input
-         })
-      }
+   const handleRegister =()=> {
+      //something
    }
 
 
@@ -69,37 +60,45 @@ export default function EmailForm({handleChangeLoginType}) {
    <View style={styles.loginForm__container}>
       {
          uiLoading ? <Loading /> :
-         loginType === 'set password' ?
-         <SetPasswordForm 
-            email={emailFormInput.email} 
-            handleChangeLoginType={handleChangeLoginType}  
-         />
-         :
          <View>
          <View style={styles.loginForm__innerOne}>
             <Center style={styles.wellcome__textContainer}>
                <Heading color={colors.blackPrimary} size="lg" mb={6} >{loginText.wellcome}</Heading>
                <Text style={styles.regularText}>
-                  {loginText.wellcomeEmail}
+                  Entered Email adress-
+               </Text>
+               <Text style={styles.regularText}>
+               {email}
+               </Text>
+               <Text style={styles.regularText}>
+                  Please set your password
                </Text>
             </Center>
             <Input 
-               name="email" 
-               placeholder='Enter email address' 
+               name="newPassword" 
+               placeholder='Enter password' 
                sx={{marginBottom: 20}}
                onChangeText={handleOnChangeText}
                error={inputError}  
-               value={emailFormInput.email}
+               value={passwordInput.newPassword}
+            />
+            <Input 
+               name="confirmPassword" 
+               placeholder='Confirm password' 
+               sx={{marginBottom: 20}}
+               onChangeText={handleOnChangeText}
+               error={inputError}  
+               value={passwordInput.confirmPassword}
             />
          </View>
          <View style={styles.loginForm__innerTwo}>
             <LongButton 
-               onPress={handleOnEmailContinue} 
-               title="continue" 
+               onPress={handleRegister} 
+               title="register" 
                sx={{marginBottom: 25}} 
             />
             <LinkButton 
-               onPress={() => handleChangeLoginType('login')} 
+               onPress={() => handleChangeLoginType(LoginType.LOGIN)} 
                title="Already have an account?" 
                sx={{alignItems: 'center'}} 
             />
@@ -111,14 +110,11 @@ export default function EmailForm({handleChangeLoginType}) {
 }
 const styles = StyleSheet.create({
    loginForm__container: {
-      marginTop: 130,
-      minHeight: 400,
-      minWidth: 330,
       justifyContent:'center',
       alignItems: 'center'
    },
    loginForm__innerOne : {
-      marginBottom: 40,
+      marginBottom: 50,
       justifyContent:'center',
       alignItems: 'center'
    },
@@ -130,9 +126,10 @@ const styles = StyleSheet.create({
       fontSize: sizes.regilarText,
       color: colors.blackPrimary,
       fontWeight: 'bold',
-      opacity: .6
+      opacity: .6,
+      lineHeight: 25,
    },
-   loginForm__innerTwo : {
+   loginForm__innerTwo: {
       justifyContent: 'center',
       alignItems: 'center'
    }
