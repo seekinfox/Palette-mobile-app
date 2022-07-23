@@ -9,21 +9,24 @@ import LoginForm from './LoginForm'
 import EmailForm from './EmailForm'
 export default function Login() {
 const [isLoginType, setIsLoginType] = useState('login')
+const handleChangeLoginType = (type) => {
+   setIsLoginType(type)
+}
 
   return (
    <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss();}}>
-    <Center flex={1} style={{borderWidth: 1}}>
+    <Center flex={1}>
          <View>
             <Image source={logo} alt="palette logo" />
          </View>
          {
             (isLoginType === "login") ? 
                <LoginForm 
-                  setIsLoginType={setIsLoginType} 
-                     
+                  handleChangeLoginType={handleChangeLoginType} 
                /> :
             (isLoginType === 'new') ? 
-               <EmailForm /> :
+               <EmailForm 
+                  handleChangeLoginType={handleChangeLoginType} /> :
             (isLoginType === 'set password') ? 
                <></> :
             <></>

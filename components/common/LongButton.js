@@ -4,10 +4,10 @@ import { Center, Pressable, View } from 'native-base'
 import { colors } from '../../utils/colors'
 import { sizes } from '../../utils/sizes'
 
-export default function LongButton({variant, title, sx}) {
+export default function LongButton({onPress, variant, title, sx}) {
   return (
    // variant === 'outlined' && 
-    <Pressable m={2} style={{...styles.button__outerContainer, ...sx}}>
+    <Pressable onPress={onPress} m={2} style={{...styles.button__outerContainer, ...sx}}>
       {({isPressed}) => {
          return (
             <View style={{
