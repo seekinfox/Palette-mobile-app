@@ -7,26 +7,35 @@ import { commonImages, logo } from '../../utils/images'
 import Input from '../../components/common/Input'
 import LoginForm from './LoginForm'
 import EmailForm from './EmailForm'
+import ForgotPassword from './ForgotPassword'
+import { LoginType } from '../../utils/defaultText'
 export default function Login() {
 const [isLoginType, setIsLoginType] = useState('login')
+const handleChangeLoginType = (type) => {
+   setIsLoginType(type)
+}
 
   return (
    <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss();}}>
-    <Center flex={1} style={{borderWidth: 1}}>
+    <Center flex={1}>
          <View>
             <Image source={logo} alt="palette logo" />
          </View>
          {
-            (isLoginType === "login") ? 
+            (isLoginType === LoginType.LOGIN) ? 
                <LoginForm 
-                  setIsLoginType={setIsLoginType} 
-                     
+                  handleChangeLoginType={handleChangeLoginType} 
                /> :
-            (isLoginType === 'new') ? 
-               <EmailForm /> :
-            (isLoginType === 'set password') ? 
-               <></> :
-            <></>
+            (isLoginType === LoginType.NEW_USER) ? 
+               <EmailForm 
+                  handleChangeLoginType={handleChangeLoginType} 
+               /> :  
+               (isLoginType === LoginType.FORGOT_PASSWORD) ?
+               <ForgotPassword 
+                  handleChangeLoginType={handleChangeLoginType} 
+               />
+                  :
+               <Center>Error finding the screen</Center>
          }
     </Center>
    </TouchableWithoutFeedback>

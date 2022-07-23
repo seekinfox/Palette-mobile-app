@@ -4,10 +4,9 @@ import { Center, Pressable, View } from 'native-base'
 import { colors } from '../../utils/colors'
 import { sizes } from '../../utils/sizes'
 
-export default function LongButton({variant, title, sx}) {
+export default function LongButton({onPress, variant, title, sx}) {
   return (
-   // variant === 'outlined' && 
-    <Pressable m={2} style={{...styles.button__outerContainer, ...sx}}>
+    <Pressable onPress={onPress} m={2} style={{...styles.button__outerContainer, ...sx}}>
       {({isPressed}) => {
          return (
             <View style={{
@@ -39,12 +38,17 @@ const styles = StyleSheet.create({
       color: colors.blackPrimary,
       borderRadius: 10,
       overflow: 'hidden',
-      backgroundColor: colors.blackPrimary
+      backgroundColor: colors.blackPrimary,
+      justifyContent:'center',
+      alignItems: 'center',
+      width: sizes.longButton,
    },
    button__container: {
-      width: sizes.longButton,
+      width: '100%',
       padding: 15,
       borderRadius: 10,
+      justifyContent:'center',
+      alignItems: 'center'
    }, 
    button__text: {
       textTransform: 'capitalize',

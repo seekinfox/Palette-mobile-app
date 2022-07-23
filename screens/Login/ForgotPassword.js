@@ -2,7 +2,6 @@ import { View, Text } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import Loading from '../../components/common/Loading';
 import Input from '../../components/common/Input';
-import LinkButton from '../../components/common/LinkButton';
 import LongButton from '../../components/common/LongButton';
 import { StyleSheet } from 'react-native';
 import { Center, Heading } from 'native-base';
@@ -10,10 +9,10 @@ import { loginText, LoginType } from '../../utils/defaultText';
 import { sizes } from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import { validate } from '../../utils/validations';
-import SetPasswordForm from './SetPasswordForm';
+import LinkButton from '../../components/common/LinkButton';
 
-export default function EmailForm({handleChangeLoginType}) {
-   const [loginType, setLoginType] = useState('')
+
+export default function ForgotPassword({handleChangeLoginType}) {
    const [uiLoading, setUiLoading] = useState(true)
    const [inputError, setInputError] = useState({
       isError: false,
@@ -36,6 +35,7 @@ export default function EmailForm({handleChangeLoginType}) {
          clearTimeout(resetUiLoading)
       }
    }, [])
+
    useEffect(() => {
       setInputError({
          isError: false,
@@ -50,10 +50,10 @@ export default function EmailForm({handleChangeLoginType}) {
       })
    }
 
-   const handleOnEmailContinue =()=> {
+   const handleOnResetPassword =()=> {
       const validation = validate(emailFormInput)
       if(validation.validate){
-         setLoginType(LoginType.SET_PASSWORD)
+         // setLoginType('set password')
       } else {
          setInputError({
             isError: true,
@@ -69,18 +69,12 @@ export default function EmailForm({handleChangeLoginType}) {
    <View style={styles.loginForm__container}>
       {
          uiLoading ? <Loading /> :
-         loginType === 'set password' ?
-         <SetPasswordForm 
-            email={emailFormInput.email} 
-            handleChangeLoginType={handleChangeLoginType}  
-         />
-         :
          <View>
          <View style={styles.loginForm__innerOne}>
             <Center style={styles.wellcome__textContainer}>
-               <Heading color={colors.blackPrimary} size="lg" mb={6} >{loginText.wellcome}</Heading>
+               <Heading color={colors.blackPrimary} size="lg" mb={6} >{loginText.forgotPasswordTitle}</Heading>
                <Text style={styles.regularText}>
-                  {loginText.wellcomeEmail}
+                  {loginText.forgotPassWordSub}
                </Text>
             </Center>
             <Input 
@@ -94,12 +88,12 @@ export default function EmailForm({handleChangeLoginType}) {
          </View>
          <View style={styles.loginForm__innerTwo}>
             <LongButton 
-               onPress={handleOnEmailContinue} 
-               title="continue" 
+               onPress={handleOnResetPassword} 
+               title="Reset Password" 
                sx={{marginBottom: 25}} 
             />
             <LinkButton 
-               onPress={() => handleChangeLoginType('login')} 
+               onPress={() => handleChangeLoginType(LoginType.LOGIN)} 
                title="Already have an account?" 
                sx={{alignItems: 'center'}} 
             />
@@ -115,15 +109,15 @@ const styles = StyleSheet.create({
       minHeight: 400,
       minWidth: 330,
       justifyContent:'center',
-      alignItems: 'center'
+      alignItems: 'center',
    },
    loginForm__innerOne : {
       marginBottom: 40,
       justifyContent:'center',
-      alignItems: 'center'
+      alignItems: 'center',
    },
    wellcome__textContainer : {
-      paddingHorizontal: 30,
+      paddingHorizontal: 35,
       marginBottom: 50,
    },
    regularText: {
@@ -133,7 +127,6 @@ const styles = StyleSheet.create({
       opacity: .6
    },
    loginForm__innerTwo : {
-      justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
    }
 })

@@ -12,7 +12,8 @@ export default function LinkButton({title, onPress, sx}) {
 }
 const styles = StyleSheet.create({
    link__container :{
-      paddingHorizontal: 10
+      paddingHorizontal: 10,
+      padding: 10,
    },
    linktext : {
       fontWeight: 'bold',
