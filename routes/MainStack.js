@@ -1,26 +1,28 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useState } from 'react';
+import { createRef, useState } from 'react';
+import Header from '../components/Header';
 import Login from '../screens/Login/Login';
 import Profile from '../screens/Profile/Profile';
 import Todo from '../screens/Todo/Todo';
-
+import TodoDetails from '../screens/Todo/TodoDetails';
 
 const MainStack = createNativeStackNavigator()
-const HomeStack = createNativeStackNavigator()
-
+// const HomeStack = createNativeStackNavigator()
+const mainStackRef = createRef()
+export const navigationRef =(name, params) => {
+   mainStackRef.current.navigate(name, params)
+}
 export const LoginStack =()=> {
 
    return (
       <NavigationContainer>
-         <MainStack.Navigator>
+         <MainStack.Navigator  screenOptions={{
+               headerShown: false
+            }}>
             <MainStack.Screen 
                name='Login' 
-               component={Login}
-               options={{
-                  headerShadowVisible: false,
-                  title: ''
-               }}    
+               component={Login}   
             />
          </MainStack.Navigator>
       </NavigationContainer>
@@ -29,23 +31,23 @@ export const LoginStack =()=> {
 
 export const Home = () => {
    return (
-      <NavigationContainer>
-         <MainStack.Navigator>
+      <NavigationContainer ref={mainStackRef}>
+         <MainStack.Navigator
+            screenOptions={{
+               headerShown: false
+            }}
+         >
             <MainStack.Screen 
                name='Todo' 
-               component={Todo}
-               options={{
-                  headerShadowVisible: false,
-                  title: 'Todo'
-               }}    
+               component={Todo} 
             />
             <MainStack.Screen
                name='Profile'
                component={Profile}
-               options={{
-                  headerShadowVisible: false,
-                  title: 'profile'
-               }}
+            />
+            <MainStack.Screen
+               name='TodoDetails'
+               component={TodoDetails}
             />
          </MainStack.Navigator>
       </NavigationContainer>
