@@ -7,8 +7,12 @@ import { Center } from 'native-base'
 import Loading from '../../components/common/Loading'
 import { validate } from '../../utils/validations'
 import { LoginType } from '../../utils/defaultText'
+import { useDispatch } from 'react-redux'
+//temp import 
+import { setisLogin } from '../../redux/slice/authuntication.slice'
 
 export default function LoginForm({handleChangeLoginType}) {
+   const dispatch = useDispatch()
    const [uiLoading, setUiLoading] = useState(true)
    //input body
    const [loginInputBody, setLoginInputBody] = useState({
@@ -54,6 +58,7 @@ export default function LoginForm({handleChangeLoginType}) {
    const handleLogin =()=> {
       let validation = validate(loginInputBody)
       if(validation.validate){
+            dispatch(setisLogin(true))
          //something
       } else {
          setInputError({

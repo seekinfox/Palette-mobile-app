@@ -9,6 +9,7 @@ import LoginForm from './LoginForm'
 import EmailForm from './EmailForm'
 import ForgotPassword from './ForgotPassword'
 import { LoginType } from '../../utils/defaultText'
+import { colors } from '../../utils/colors'
 export default function Login() {
 const [isLoginType, setIsLoginType] = useState('login')
 const handleChangeLoginType = (type) => {
@@ -17,7 +18,7 @@ const handleChangeLoginType = (type) => {
 
   return (
    <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss();}}>
-    <Center flex={1}>
+    <Center flex={1} style={{backgroundColor: colors.primarywhite}}>
          <View>
             <Image source={logo} alt="palette logo" />
          </View>
@@ -30,7 +31,7 @@ const handleChangeLoginType = (type) => {
                <EmailForm 
                   handleChangeLoginType={handleChangeLoginType} 
                /> :  
-               (isLoginType === LoginType.FORGOT_PASSWORD) ?
+            (isLoginType === LoginType.FORGOT_PASSWORD) ?
                <ForgotPassword 
                   handleChangeLoginType={handleChangeLoginType} 
                />
