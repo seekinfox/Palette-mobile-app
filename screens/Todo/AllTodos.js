@@ -10,6 +10,7 @@ export default function AllTodos() {
       <FlatList
          data={todoList}
          renderItem={({item}) => <TodoItem item={item} />}
+         keyExtractor={item =>item.id}
       />
     </View>
   )

@@ -5,4 +5,7 @@ export const colors = {
    primarywhite: '#FFFF',
    primaryRed: '#E03838',
    primaryText: '#F86D70',
+   primaryOrange: "#f98308",
+   primaryPurple: '#a5a9ed',
+   
 }

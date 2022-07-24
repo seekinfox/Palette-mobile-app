@@ -20,7 +20,7 @@ export default function HorizontalNav() {
 }
 const styles = StyleSheet.create({
    navbar__container: {
-      elevation: 10,
+      elevation: 5,
       shadowColor: colors.blackPrimary,
       backgroundColor: colors.primarywhite,
       padding: 5,

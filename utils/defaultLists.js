@@ -4,26 +4,42 @@ export const todoList =[
    {
       id: 1,
       title: 'lorem ipsum sit amet',
-      date: '21/07/2022',
+      date: 'Jun 20 2021',
       status: 'overdue',
       type: 'college application',
-      location: ''
+      location: '',
+      link: 'dd',
+      document: 'das',
    },
    {
       id: 2,
       title: 'lorem ipsum sit amet',
-      date: '21/07/2022',
+      date: 'Jun 20 2021',
       status: '',
       type: 'college application',
-      location: ''
+      location: '',
+      link: '',
+      document: '',
    },
    {
       id: 3,
       title: 'lorem ipsum sit amet',
-      date: '21/07/2022',
+      date: 'May 20 2021',
       status: '',
       type: '',
-      location: ''
+      location: '',
+      link: '',
+      document: '',
+   },
+   {
+      id: 4,
+      title: 'lorem ipsum sit amet',
+      date: 'Apr 20 2021',
+      status: '',
+      type: '',
+      location: '',
+      link: 'sd',
+      document: 'asdasd',
    },
 
 ]

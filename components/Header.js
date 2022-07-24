@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Touchable, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { colors } from '../utils/colors'
@@ -6,15 +6,20 @@ import { Avatar, Heading } from 'native-base'
 import IconButton from './common/IconButton'
 import { AntDesign, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { sizes } from '../utils/sizes'
+import { useNavigation } from '@react-navigation/native'
 
 //< size={24} color="black" />
 //< size={24} color="black" />
 
 export default function Header({title}) {
+   const navigation = useNavigation()
   return (
     <View style ={styles.header__container}>
          <View style={styles.header__innerOne}>
-            <Avatar size='lg' />
+
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+               <Avatar size='lg' />
+            </TouchableOpacity>
             <Heading color={colors.blackPrimary} size="md">{title}</Heading>
             <IconButton 
                renderIcon={() => <AntDesign name="search1" size={24} color={colors.primaryText} /> } />
