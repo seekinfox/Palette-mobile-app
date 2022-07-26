@@ -4,7 +4,7 @@ import { Center, Pressable, View } from 'native-base'
 import { colors } from '../../utils/colors'
 import { sizes } from '../../utils/sizes'
 
-export default function LongButton({onPress, variant, title, sx}) {
+export default function LongButton({onPress, variant, title, sx, sxInner, textStyle}) {
   return (
     <Pressable onPress={onPress} m={2} style={{...styles.button__outerContainer, ...sx}}>
       {({isPressed}) => {
@@ -15,12 +15,14 @@ export default function LongButton({onPress, variant, title, sx}) {
                transform: [{
                   scale: isPressed ? 0.96 : 1
                 }],
-                opacity: isPressed ? 0.9 : 1
+                opacity: isPressed ? 0.9 : 1,
+                ...sxInner
                }}>
                <Center _text={{fontWeight:'bold', letterSpacing:1 }}>
                   <Text style={{
                      ...styles.button__text, 
-                     color: variant === 'outlined' ? colors.blackPrimary : colors.primarywhite
+                     color: variant === 'outlined' ? colors.blackPrimary : colors.primarywhite,
+                     ...textStyle
                      }}>
                         {title}
                      </Text>

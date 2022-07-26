@@ -7,5 +7,5 @@ export const sizes = {
    button: 19,
    smallButton: 15,
    smallIocon: 20,
-
+   mdIcon: 30,
 }
