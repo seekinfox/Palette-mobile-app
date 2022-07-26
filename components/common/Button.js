@@ -24,7 +24,9 @@ export default function Button({
 const styles = StyleSheet.create({
    button__container: {
       padding: 7,
-      backgroundColor: 'transparent'
+      backgroundColor: 'transparent',
+      justifyContent:'center',
+      alignItems: 'center'
    },
    title: {
       fontWeight: 'bold',

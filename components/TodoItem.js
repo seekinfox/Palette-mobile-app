@@ -16,7 +16,10 @@ export default function TodoItem({item}) {
       navigationRef('TodoDetails', {id: item.id})
    }
   return (
-    <View style={styles.todoItem__container}>
+    <View style={{
+      ...styles.todoItem__container, 
+      backgroundColor: item.status === 'overdue' ? colors.redOOf : colors.primarywhite
+    }}>
       <View style={styles.todoItem__one}>
          {/* date and time */}
          <Text style={styles.dateText}>{item.date}</Text>
