@@ -8,7 +8,7 @@ import { Heading } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
 import { sizes } from '../utils/sizes';
 
-export default function ProfileTopbar({navigation}) {
+export default function ProfileTopbar({logout, title,  navigation}) {
   return (
     <View style={styles.topbar__container}>
       <IconButton
@@ -16,11 +16,12 @@ export default function ProfileTopbar({navigation}) {
          sx={{elevation: 0, width: 50, height: 50}}
          renderIcon={() => <AntDesign name="left" size={sizes.mdIcon} color={colors.blackPrimary} />}
       />
-      <Heading size='md' color={colors.blackPrimary}>Profile</Heading>
-      <IconButton 
+      <Heading size='md' color={colors.blackPrimary}>{title}</Heading>
+      { logout &&
+         <IconButton 
          sx={{elevation: 0, width: 50, height: 50}}
          renderIcon={()=> <Ionicons name="log-out" size={sizes.mdIcon} color={colors.primaryRed} />}
-      />
+      />}
     </View>
   )
 }

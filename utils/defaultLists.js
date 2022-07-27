@@ -196,3 +196,21 @@ export const todoType = [
       value: 'todo4'
    },
 ]  
+
+export const links = [
+   {
+      id: 1,
+      title: 'Montgomery College website',
+      url: 'Montgomery College website'
+   },
+   {
+      id: 2,
+      title: 'Montgomery College Instagram handle',
+      url: 'Montgomery College Instagram handle'
+   },
+   {
+      id: 3,
+      title: 'Montgomery College facebook page',
+      url: 'Montgomery College facebook page'
+   }
+]
