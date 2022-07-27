@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { colors } from '../../utils/colors'
 import Input from '../../components/common/Input'
 import TodoInput from '../../components/common/TodoInput'
@@ -12,14 +12,30 @@ import DateTimeInput from '../../components/common/DateTimeInput'
 import AddFileButton from '../../components/common/AddFileButton'
 import LongButton from '../../components/common/LongButton'
 import ModalTodo from '../../components/ModalTodo'
+import { useDispatch } from 'react-redux'
+import { createTodoInputs, resetCreateTodo } from '../../redux/slice/todo.slice'
+import {useSelector } from "react-redux";
 
 export default function CreateTodo() {
+   const dispatch = useDispatch()
+   const {createTodo} = useSelector(state => state.todo)
    const [open, setOpen] = useState(false)
 
+   const handlesetInput =(name, value)=> {
+      dispatch(createTodoInputs({name: name, value: value}))
+   }
+   useEffect(()=> {
+      dispatch(resetCreateTodo())
+   }, [])
+   useEffect(()=> {
+      console.log(createTodo)
+   }, [createTodo])
   return (
    <TouchableWithoutFeedback onPress={()=> Keyboard.dismiss()}>
     <View style={styles.createTodo__conatainer}>
       <View style={styles.createTodo__one}>
+         {/* get assignee  */}
+
          <TodoInput 
             style={{flex: 0.5, marginRight: 10,}}
             placeholder="Assignees"
@@ -31,20 +47,35 @@ export default function CreateTodo() {
             }}
             editable={false} 
          />
-
-         <SelectInput label='Todo type' data={todoType} />
+         
+         <SelectInput 
+            name='todotype'
+            handlesetInput={handlesetInput} 
+            label='Todo type' 
+            data={todoType} />
       </View>
 
       <View style={styles.createTodo__two}>
-         <TodoInput placeholder='Enter action text...' />
+         <TodoInput 
+            name="action" 
+            placeholder='Enter action text...' 
+            onChangeText={(value)=> handlesetInput('action',value)}   
+         />
       </View>
 
       <View style={styles.createTodo__three}>
-            <DateTimeInput />
-            <DateTimeInput isTime={true} />
+            <DateTimeInput
+               name="date"
+               handlesetInput={handlesetInput}
+            />
+            <DateTimeInput
+               name='time' 
+               handlesetInput={handlesetInput}
+               isTime={true} />
       </View>
       <View style={styles.createTodo__four}>
          <TodoInput 
+            onChangeText={(value) => handlesetInput('description', value)}
             style={{width:'100%', marginBottom: 15}}
             multiline={true} 
             placeholder='Enter Description...' />

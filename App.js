@@ -39,7 +39,8 @@ const AppContainer = ()=> {
   }, [userLogged])
 
   return (
-      isLogged ? <Home /> : <Login />
+      // isLogged ? <Home /> : <Login />
+      <Home />
   )
 }
 

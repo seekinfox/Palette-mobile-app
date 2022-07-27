@@ -1,10 +1,17 @@
 import { View, Text } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CheckIcon, Select } from 'native-base'
 import { colors } from '../../utils/colors'
 
-export default function SelectInput({style, label, data}) {
-   const [ service ,setService] = useState('')
+export default function SelectInput({name, handlesetInput, style, label, data}) {
+  const [ service ,setService] = useState('')
+   
+  useEffect(()=> {
+    if(service){
+      handlesetInput(name, service)
+    }
+  }, [service])
+
   return (
     <View style={{
       flex: 1,

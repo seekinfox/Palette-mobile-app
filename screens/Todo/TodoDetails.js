@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ProfileTopbar from '../../components/ProfileTopbar'
-import { Heading } from 'native-base'
+import { Center, Heading } from 'native-base'
 import LongButton from '../../components/common/LongButton'
 import { colors } from '../../utils/colors'
 import { EvilIcons } from '@expo/vector-icons';
@@ -10,12 +10,27 @@ import { Ionicons } from '@expo/vector-icons';
 import { links } from '../../utils/defaultLists'
 import Links from '../../components/common/Links'
 import DeatilsActionSheet from '../../components/DeatilsActionSheet'
+import Loading from "../../components/common/Loading"
 
-
-export default function TodoDetails({navigation}) {
+export default function TodoDetails({route, navigation}) {
    const [isOpen, setIsOpen] = useState(false)
+   const [screenLoading, setScreenLoaing] = useState(true)
+   const todoId = route.params.id
+
+   useEffect(() => {
+      const clearLoading = setTimeout(() => {
+         setScreenLoaing(false)
+      }, 1000);
+      
+      return () => {
+       clearTimeout(clearLoading)
+      }
+   }, [])
+   
+   
 
   return (
+   screenLoading ? <Center flex={1}><Loading /></Center> :
     <View style={styles.todoDetails__container}>
       <ProfileTopbar navigation={navigation} />
       <View style={styles.todoDetails__head}>

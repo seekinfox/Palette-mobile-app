@@ -1,18 +1,47 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal } from 'native-base'
 import LongButton from './common/LongButton'
 import { Feather } from '@expo/vector-icons';
 import { colors } from '../utils/colors';
 import { sizes } from '../utils/sizes';
 import Input from './common/Input';
-
+import {useDispatch} from "react-redux"
+import { createTodoInputs } from '../redux/slice/todo.slice'
 
 export default function LinksTodoModel({isAddlinkOpen, setIsAddlinkOpen}) {
+   const dispatch = useDispatch()
+   const [input, setInput]= useState([])
+   const [title, setTitle] = useState('')
+   const [url, setUrl] = useState({})
+
 
    const handleCloseModel =()=>{
       setIsAddlinkOpen(false)
    }
+   const handleChangeTitle =(value, name)=> {
+      setTitle({
+         [name]: value
+      })
+   }
+   const handleChangeUrl =(value, name)=> {
+      setUrl({
+         [name]: value
+      })
+   }
+   const handleOnDone =()=>{
+      setInput([
+         ...input,
+         {
+            ...title,
+            ...url
+         }])
+      setIsAddlinkOpen(false) 
+   }
+   useEffect(() => {
+      dispatch(createTodoInputs({name: 'links', value: input}))
+   }, [input])
+   
   return (
    <View>
       <Modal isOpen={isAddlinkOpen} onClose={() => setIsAddlinkOpen(false)}>
@@ -30,11 +59,15 @@ export default function LinksTodoModel({isAddlinkOpen, setIsAddlinkOpen}) {
             <Modal.Body style={{
                width: 450,
             }}>
-               <Input 
+               <Input
+                  name='linkTitle'
+                  onChangeText={handleChangeTitle} 
                   placeholder='Enter title' 
                   sx={{width: '90%'}}  
                />
-               <Input  
+               <Input
+                  name='linkUrl'
+                  onChangeText={handleChangeUrl}   
                   placeholder='Enter or Paste URL' 
                   sx={{width: '90%'}}
                />
@@ -53,6 +86,7 @@ export default function LinksTodoModel({isAddlinkOpen, setIsAddlinkOpen}) {
                      textStyle={{color: colors.primaryRed}}
                      title={'Cancel'} />
                   <LongButton
+                     onPress={handleOnDone}
                      sx={{
                         backgroundColor: colors.primaryRed,
                         borderColor: colors.primaryRed,
@@ -60,7 +94,7 @@ export default function LinksTodoModel({isAddlinkOpen, setIsAddlinkOpen}) {
                         flex: 1,
                      }}
                      sxInner={{backgroundColor: colors.primaryRed,}}
-                  title='Done' />
+                     title='Done' />
             </Modal.Footer>
          </Modal.Content>
       </Modal>

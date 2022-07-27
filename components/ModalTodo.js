@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal } from 'native-base'
 import { sizes } from '../utils/sizes'
 import { colors } from '../utils/colors'
@@ -9,11 +9,13 @@ import { Feather } from '@expo/vector-icons';
 import * as DocumentPicker from 'expo-document-picker';
 import LongButton from './common/LongButton'
 import LinksTodoModel from './LinksTodoModel'
+import {useDispatch} from "react-redux"
+import { createTodoInputs } from '../redux/slice/todo.slice'
 
 export default function ModalTodo({open, setOpen, title}) {
-   const [fileInput, setFileInput] = useState([])
+   const [fileInput, setFileInput] = useState({})
    const [isAddlinkOpen, setIsAddlinkOpen] = useState(false)
-
+   const dispatch = useDispatch()
    const handlePickFiles = async ()=>{
       try {
          let data = await DocumentPicker.getDocumentAsync({})
@@ -23,6 +25,13 @@ export default function ModalTodo({open, setOpen, title}) {
          console.log(error)
       }
    }
+
+   useEffect(() => {
+     if(fileInput){
+      dispatch(createTodoInputs({name: 'file', value: fileInput}))
+     }
+   }, [fileInput])
+   
    
 
   return (
@@ -53,9 +62,6 @@ export default function ModalTodo({open, setOpen, title}) {
                   title='Links'
                />
             </Modal.Body>
-            {/* <Modal.Footer>
-               
-            </Modal.Footer> */}
       </Modal.Content>
 
 
