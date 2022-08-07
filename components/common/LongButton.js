@@ -3,8 +3,9 @@ import React from 'react'
 import { Center, Pressable, View } from 'native-base'
 import { colors } from '../../utils/colors'
 import { sizes } from '../../utils/sizes'
+import Loading from './Loading'
 
-export default function LongButton({onPress, variant, title, sx, sxInner, textStyle}) {
+export default function LongButton({onPress, variant, title, sx, sxInner, textStyle, loading}) {
   return (
     <Pressable onPress={onPress} m={2} style={{...styles.button__outerContainer, ...sx}}>
       {({isPressed}) => {
@@ -19,13 +20,16 @@ export default function LongButton({onPress, variant, title, sx, sxInner, textSt
                 ...sxInner
                }}>
                <Center _text={{fontWeight:'bold', letterSpacing:1 }}>
-                  <Text style={{
+                  {
+                     loading ? <Loading style={{paddingVertical: 3}} size='sm' /> :
+                     
+                     <Text style={{
                      ...styles.button__text, 
                      color: variant === 'outlined' ? colors.blackPrimary : colors.primarywhite,
                      ...textStyle
                      }}>
                         {title}
-                     </Text>
+                     </Text>}
                </Center>
             </View>
          )

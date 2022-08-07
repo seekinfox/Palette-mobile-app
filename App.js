@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Text,
   Link,
@@ -16,8 +16,11 @@ import NativeBaseIcon from "./components/NativeBaseIcon";
 import { Platform } from "react-native";
 import Login from "./screens/Login/Login";
 import { Home, LoginStack } from "./routes/MainStack";
-import { Provider, useSelector } from "react-redux";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { store } from "./redux/store";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setisLogin } from "./redux/slice/authuntication.slice";
+import { STORAGE_KEY } from "./utils/defaultText";
 
 // import Navigator from "./routes/MainStack"
 
@@ -31,16 +34,43 @@ const config = {
 export const theme = extendTheme({ config });
 
 const AppContainer = ()=> {
-  const {userLogged} = useSelector(state => state.authuntication)
-  const [isLogged, setIsLogged] = useState(userLogged)
-  
-  useEffect(()=> {
-    setIsLogged(userLogged)
+  const dispatch = useDispatch()
+  const {loaders, userLogged} = useSelector(state => state.authuntication)
+  const [userMetaVerify, setUserMetaVerify] = useState({})
+
+  const getData = useCallback(async () => {
+    try {
+      const value = await AsyncStorage.getItem(STORAGE_KEY)
+      if(value !== null) {
+        const parsedValue = JSON.parse(value)
+        setUserMetaVerify({...parsedValue})
+      } else {
+        setUserMetaVerify({})
+      }
+    } catch(e) {
+      // error reading value
+    }
   }, [userLogged])
 
+  useEffect(() => getData(), [])
+  useEffect(() => {
+    if(loaders.loginSuccess){
+      getData()
+    }
+    if(!userLogged){
+      getData()
+    }
+  }, [loaders.login, userLogged])
+  
+  useEffect(()=> {
+    if(userMetaVerify?.accessToken){
+      dispatch(setisLogin(true))
+    }
+  }, [getData, userMetaVerify])
+
   return (
-      // isLogged ? <Home /> : <Login />
-      <Home />
+    userMetaVerify.accessToken ? <Home /> : <Login />
+      // <Home />
   )
 }
 

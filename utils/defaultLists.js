@@ -7,6 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { colors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 
+
 export const todoList =[
    {
       id: 1,
@@ -82,15 +83,15 @@ export const TodoNavigation= [
 export const profileSections = {
    education: {
       title : 'Education',
-      icon: <Entypo name="graduation-cap" size={24} color="black" />
+      icon: <Entypo name="graduation-cap" size={24} color={colors.blackOff} />
    },
    workExperience: {
       title: 'Work Experience',
-      icon: <FontAwesome name="suitcase" size={24} color="black" />
+      icon: <FontAwesome name="suitcase" size={24} color={colors.blackOff} />
    },
    interests: {
       title: 'Interests',
-      icon: <AntDesign name="hearto" size={24} color="black" />
+      icon: <AntDesign name="hearto" size={24} color={colors.blackOff} />
    }
 
 }
@@ -214,3 +215,14 @@ export const links = [
       url: 'Montgomery College facebook page'
    }
 ]
+
+export const todoDetails = {
+   name: 'Apply to Montgomery college',
+   user: {
+      username: 'username',
+      date: '',
+   },
+   completedBy: '',
+   description : 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique enim dolor dignissimos nemo, consequuntur hic repellat et explicabo unde, ullam adipisci corporis atque in fugiat minima ratione? Nesciunt, nam ea.',
+   links: links
+}

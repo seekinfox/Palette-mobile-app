@@ -11,10 +11,13 @@ import { sizes } from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import { validate } from '../../utils/validations';
 import SetPasswordForm from './SetPasswordForm';
+import { useDispatch } from 'react-redux';
+import { setSignupInputs } from '../../redux/slice/authuntication.slice';
 
 export default function EmailForm({handleChangeLoginType}) {
    const [loginType, setLoginType] = useState('')
    const [uiLoading, setUiLoading] = useState(true)
+   const dispatch = useDispatch()
    const [inputError, setInputError] = useState({
       isError: false,
       message: '',
@@ -53,6 +56,7 @@ export default function EmailForm({handleChangeLoginType}) {
    const handleOnEmailContinue =()=> {
       const validation = validate(emailFormInput)
       if(validation.validate){
+         dispatch(setSignupInputs({email: emailFormInput.email}))
          setLoginType(LoginType.SET_PASSWORD)
       } else {
          setInputError({

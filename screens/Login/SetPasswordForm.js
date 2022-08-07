@@ -10,16 +10,23 @@ import { loginText, LoginType } from '../../utils/defaultText';
 import { sizes } from '../../utils/sizes';
 import {colors} from '../../utils/colors';
 import { validate } from '../../utils/validations';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSignupInputs } from '../../redux/slice/authuntication.slice';
+import { signUp } from '../../redux/action/user.action';
+// import authuntication from '../../redux/slice/authuntication.slice';
 
 export default function SetPasswordForm({email, handleChangeLoginType}) {
    const [uiLoading, setUiLoading] = useState(true)
+   const dispatch = useDispatch()
+   const {loaders, signUpInputs} = useSelector(state => state.authuntication)
+   
    const [inputError, setInputError] = useState({
       isError: false,
       message: '',
       inputName: ''
    })
    const [passwordInput, setpasswordInput] = useState({
-      newPassword: '',
+      password: '',
       confirmPassword: ''
    })
    useEffect(()=> {
@@ -49,9 +56,17 @@ export default function SetPasswordForm({email, handleChangeLoginType}) {
          [name]: value
       })
    }
+   useEffect(()=> {
+      if(passwordInput.password === passwordInput.confirmPassword && validate(passwordInput)){
+         dispatch(setSignupInputs({
+            ...signUpInputs,
+            password: passwordInput.password
+         }))
+      }
+   }, [passwordInput])
 
    const handleRegister =()=> {
-      //something
+      dispatch(signUp(signUpInputs))
    }
 
 
@@ -75,12 +90,12 @@ export default function SetPasswordForm({email, handleChangeLoginType}) {
                </Text>
             </Center>
             <Input 
-               name="newPassword" 
+               name="password" 
                placeholder='Enter password' 
                sx={{marginBottom: 20}}
                onChangeText={handleOnChangeText}
                error={inputError}  
-               value={passwordInput.newPassword}
+               value={passwordInput.password}
             />
             <Input 
                name="confirmPassword" 
@@ -93,13 +108,14 @@ export default function SetPasswordForm({email, handleChangeLoginType}) {
          </View>
          <View style={styles.loginForm__innerTwo}>
             <LongButton 
+               loading={loaders.signup}
                onPress={handleRegister} 
                title="register" 
                sx={{marginBottom: 25}} 
             />
             <LinkButton 
                onPress={() => handleChangeLoginType(LoginType.LOGIN)} 
-               title="Already have an account?" 
+               title="Back to Login" 
                sx={{alignItems: 'center'}} 
             />
          </View>

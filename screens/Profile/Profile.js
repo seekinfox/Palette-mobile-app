@@ -23,7 +23,7 @@ export default function Profile() {
 
    return (
     <View style={styles.profile__container}>
-      <View>
+      <View style={{marginBottom: 10}}>
          <ProfileTopbar 
             logout
             title='Profile' 

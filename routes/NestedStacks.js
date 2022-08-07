@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createRef } from 'react';
 import AllTodos from '../screens/Todo/AllTodos';
 import CreateTodo from '../screens/Todo/CreateTodo';
+import EditProfile from '../screens/Profile/EditProfile';
 
 const todoStackRef = createRef()
 export const navigateTodo =(name, params)=> {
@@ -26,6 +27,10 @@ export const TodoStack =() => {
                component={CreateTodo}
             />
 
+            <Stack.Screen 
+               name='EditProfile'
+               component={EditProfile}
+            />
          </Stack.Navigator>
       </NavigationContainer>
    )
