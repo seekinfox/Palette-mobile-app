@@ -1,19 +1,28 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';import { StyleSheet } from 'react-native';
 import { colors } from '../../utils/colors';
 import { sizes } from '../../utils/sizes';
 import { Feather } from '@expo/vector-icons';
 
-export default function DateTimeInput({isTime, style}) {
+export default function DateTimeInput({name, handlesetInput, isTime, style}) {
 const [date ,setDate] = useState(new Date())
 const [time, setTime] = useState(new Date())
 
 const onChange = (event, selectedDate) => {
   const currentDate = selectedDate;
   setDate(currentDate);
-  setTime(currentDate)
+  setTime(currentDate);
 };
+
+useEffect(()=> {
+  if(name === 'date'){
+    handlesetInput(name, date)
+  } else {
+    handlesetInput(name, date)
+  }
+}, [date, time])
+
 
 const showMode = (currentMode) => {
   DateTimePickerAndroid.open({

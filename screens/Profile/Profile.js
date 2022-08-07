@@ -23,8 +23,11 @@ export default function Profile() {
 
    return (
     <View style={styles.profile__container}>
-      <View>
-         <ProfileTopbar navigation={navigation} />
+      <View style={{marginBottom: 10}}>
+         <ProfileTopbar 
+            logout
+            title='Profile' 
+            navigation={navigation} />
          <View>
             <ProfileInfo />
          </View>

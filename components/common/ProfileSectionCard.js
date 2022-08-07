@@ -37,13 +37,14 @@ export default function ProfileSectionCard({item, itemHeight}) {
 
 const styles = StyleSheet.create({
  card__container: {
-   padding: 25,
-   elevation: 5,
+   padding: 20,
+   elevation: 1,
    shadowColor: colors.blackOff,
    justifyContent: 'space-around',
    alignItems: 'flex-start',
    borderRadius: 19,
    margin: 5,
+   marginRight: 30
  },
  titleText: {
    fontWeight: 'bold',

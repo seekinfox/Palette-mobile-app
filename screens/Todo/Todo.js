@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   todo__containerOne: {
-    borderWidth: 1,
     flex: 1
   },
   todo__stackContainer : {

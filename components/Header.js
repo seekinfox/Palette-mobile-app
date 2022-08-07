@@ -8,9 +8,6 @@ import { AntDesign, FontAwesome5, FontAwesome } from '@expo/vector-icons';
 import { sizes } from '../utils/sizes'
 import { useNavigation } from '@react-navigation/native'
 
-//< size={24} color="black" />
-//< size={24} color="black" />
-
 export default function Header({title}) {
    const navigation = useNavigation()
   return (

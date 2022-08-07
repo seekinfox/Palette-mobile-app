@@ -1,3 +1,5 @@
+export const STORAGE_KEY = '@userMeta'
+
 export const LoginType = {
    LOGIN: 'login',
    NEW_USER: 'new',
@@ -10,4 +12,10 @@ export const loginText = {
    wellcomeEmail: "Please enter the email address that your institute has used",
    forgotPasswordTitle: "Please enter your registered email address",
    forgotPassWordSub: "A password reset link will be sent to your email address",
+}
+export const Alerts = {
+   signupFailure: 'Failed to register user',
+   loginFailure: 'Failed to Login',
+   signUpSuccess: 'User registered successfully, please log in',
+   logOut: 'Are you sure you want to Logout?'
 }

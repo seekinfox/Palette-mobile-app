@@ -5,8 +5,10 @@ import { todoList } from '../../utils/defaultLists'
 import TodoItem from '../../components/TodoItem'
 import { Center } from 'native-base'
 import Loading from '../../components/common/Loading'
+import { useSelector } from 'react-redux'
 
 export default function AllTodos() {
+   const {allTodosDetails} = useSelector(state => state.todo)
    const [isScreenLoading, setIsScreenLoading] = useState(true)
   useEffect(()=> {
    const resetScreenLoading = setTimeout(() => {
@@ -21,7 +23,7 @@ export default function AllTodos() {
    isScreenLoading ? <Center flex={1}><Loading /></Center> :
     <View style={styles.allTodo__container}>
       <FlatList
-         data={todoList}
+         data={allTodosDetails}
          renderItem={({item}) => <TodoItem item={item} />}
          keyExtractor={item =>item.id}
       />

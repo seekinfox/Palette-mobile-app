@@ -7,13 +7,17 @@ import { Center } from 'native-base'
 import Loading from '../../components/common/Loading'
 import { validate } from '../../utils/validations'
 import { LoginType } from '../../utils/defaultText'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 //temp import 
 import { setisLogin } from '../../redux/slice/authuntication.slice'
+import { _login } from '../../redux/action/user.action'
+import Alert from '../../components/common/Alert'
 
 export default function LoginForm({handleChangeLoginType}) {
    const dispatch = useDispatch()
+   const authuntication = useSelector(state => state.authuntication)
    const [uiLoading, setUiLoading] = useState(true)
+
    //input body
    const [loginInputBody, setLoginInputBody] = useState({
       email: '',
@@ -58,7 +62,7 @@ export default function LoginForm({handleChangeLoginType}) {
    const handleLogin =()=> {
       let validation = validate(loginInputBody)
       if(validation.validate){
-            dispatch(setisLogin(true))
+            dispatch(_login(loginInputBody))
          //something
       } else {
          setInputError({
@@ -102,6 +106,7 @@ export default function LoginForm({handleChangeLoginType}) {
          </View>
          <View>
             <LongButton 
+               loading={authuntication.loaders.login}
                onPress={handleLogin}
                title="Log in" 
                sx={{marginBottom: 25}} />

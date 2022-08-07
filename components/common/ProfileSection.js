@@ -29,6 +29,7 @@ export default function ProfileSection({type, data, itemHeight}) {
 const styles = StyleSheet.create({
    profileSection__container: {
       padding: 15,
+      marginBottom:10
    },
    profileSection__innerOne: {
       flexDirection: 'row'
@@ -36,7 +37,7 @@ const styles = StyleSheet.create({
    titleText: {
       fontWeight: 'bold',
       color: colors.blackPrimary,
-      opacity: .7,
+      opacity: .6,
       fontSize: sizes.regilarText,
       marginLeft: 10,
       paddingBottom: 15
