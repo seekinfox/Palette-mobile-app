@@ -15,13 +15,22 @@ import ModalTodo from '../../components/ModalTodo'
 import { useDispatch } from 'react-redux'
 import { createTodoInputs, resetCreateTodo } from '../../redux/slice/todo.slice'
 import {useSelector } from "react-redux";
+import { getuser } from '../../utils/utils'
+import { _createTodo } from '../../redux/action/todo.action'
 
 export default function CreateTodo() {
    const dispatch = useDispatch()
    const {createTodo} = useSelector(state => state.todo)
    const [open, setOpen] = useState(false)
+   const [accessToken, setAccessToken] = useState('')
 
-   const handlesetInput =(name, value)=> {
+   useEffect(() => getuser(setAccessToken), [])
+   console.log(accessToken, "at")
+   const handleCreateTodo =()=>{
+      // dispatch(_createTodo())
+   }
+
+   const handlesetInput =(name, value)=> {   
       dispatch(createTodoInputs({name: name, value: value}))
    }
    useEffect(()=> {
@@ -93,7 +102,7 @@ export default function CreateTodo() {
          sxInner={{
             backgroundColor: colors.primaryRed,
          }}
-         onPress={() => console.log('create')} />
+         onPress={handleCreateTodo} />
       </View>
       <ModalTodo 
          open={open} 

@@ -7,7 +7,18 @@ import { FontAwesome } from '@expo/vector-icons';
 import { colors } from './colors';
 import { MaterialIcons } from '@expo/vector-icons';
 
-
+const TodoInterface = [ //for reference...
+    {
+      id: '',
+      title: '',
+      date: 'Jun 20 2021',
+      status: 'live',
+      type: '',
+      location: 'location xyz',
+      link: '',
+      document: 'das',
+   },
+]
 export const todoList =[
    {
       id: 1,
@@ -38,16 +49,6 @@ export const todoList =[
       location: '',
       link: '',
       document: '',
-   },
-   {
-      id: 4,
-      title: 'lorem ipsum sit amet',
-      date: 'Apr 20 2021',
-      status: '',
-      type: '',
-      location: '',
-      link: 'sd',
-      document: 'asdasd',
    },
 
 ]
