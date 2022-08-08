@@ -94,7 +94,7 @@ const authuntication = createSlice({
                   console.log(error)
                }
             })()
-         }         
+         }       
       })
       builder.addCase(_login.rejected, (state, action)=>{
          state.loaders.loginFailure =true;
