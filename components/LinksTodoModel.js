@@ -11,9 +11,11 @@ import { createTodoInputs } from '../redux/slice/todo.slice'
 
 export default function LinksTodoModel({isAddlinkOpen, setIsAddlinkOpen}) {
    const dispatch = useDispatch()
-   const [input, setInput]= useState([])
+   const [input, setInput]= useState('')
    const [title, setTitle] = useState('')
-   const [url, setUrl] = useState({})
+   // const [url, setUrl] = useState({})
+   const [url, setUrl] = useState('')
+   
 
 
    const handleCloseModel =()=>{
@@ -25,21 +27,20 @@ export default function LinksTodoModel({isAddlinkOpen, setIsAddlinkOpen}) {
       })
    }
    const handleChangeUrl =(value, name)=> {
-      setUrl({
-         [name]: value
-      })
+      setUrl(value)
    }
    const handleOnDone =()=>{
-      setInput([
-         ...input,
-         {
-            ...title,
-            ...url
-         }])
+      setInput(url)
+      // setInput([
+      //    ...input,
+      //    {
+      //       ...title,
+      //       ...url
+      //    }])
       setIsAddlinkOpen(false) 
    }
    useEffect(() => {
-      dispatch(createTodoInputs({name: 'links', value: input}))
+      dispatch(createTodoInputs({name: 'resource', value: input}))
    }, [input])
    
   return (
@@ -60,6 +61,7 @@ export default function LinksTodoModel({isAddlinkOpen, setIsAddlinkOpen}) {
                width: 450,
             }}>
                <Input
+                  editable={false} //api structure is different title is disabled for that reason
                   name='linkTitle'
                   onChangeText={handleChangeTitle} 
                   placeholder='Enter title' 

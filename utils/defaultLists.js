@@ -179,23 +179,13 @@ export const social = [
 export const todoType = [
    {
       key: 1,
-      label: 'todo1 type',
-      value: 'todo1'
+      label: 'Global',
+      value: 'global'
    },
    {
       key: 2,
-      label: 'todo2 type',
-      value: 'todo2',
-   },
-   {
-      key: 3,
-      label: 'todo3 type',
-      value: 'todo3',
-   },
-   {
-      key: 4,
-      label: 'todo4 type',
-      value: 'todo4'
+      label: 'Discrete',
+      value: 'discrete',
    },
 ]  
 

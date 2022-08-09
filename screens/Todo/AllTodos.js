@@ -14,12 +14,11 @@ import { getuser } from '../../utils/utils'
 export default function AllTodos() {
    const dispatch = useDispatch()
    const {metaData} = useSelector(state => state.authuntication)
-
+   const {loaders} = useSelector(state => state.todo)
+   
    const [accessToken, setAccessToken] = useState('')
    
-   useEffect(()=>{ getuser(setAccessToken)}, [])
-
-  console.log(accessToken, "$")
+   useEffect(()=>{ getuser(setAccessToken)}, [accessToken])
 
    const {allTodosDetails} = useSelector(state => state.todo)
    const [isScreenLoading, setIsScreenLoading] = useState(true)
@@ -30,7 +29,7 @@ export default function AllTodos() {
    }
    const resetScreenLoading = setTimeout(() => {
       setIsScreenLoading(false)
-   }, 1000);
+   }, 1500);
    return ()=>{
       clearTimeout(resetScreenLoading)
    }
@@ -40,6 +39,8 @@ export default function AllTodos() {
    isScreenLoading ? <Center flex={1}><Loading /></Center> :
     <View style={styles.allTodo__container}>
       <FlatList
+         refreshing={false}
+         onRefresh={() => dispatch(getTodos(accessToken))}
          data={allTodosDetails}
          renderItem={({item}) => <TodoItem item={item} />}
          keyExtractor={item =>item.id}

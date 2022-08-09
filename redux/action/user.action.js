@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { post } from "../../utils/utils";
+import { get, post } from "../../utils/utils";
 import {_USER } from "../urls";
 
 export const signUp = createAsyncThunk(
@@ -24,4 +24,17 @@ export const _login = createAsyncThunk(
          throw err
        }
    }
+)
+
+export const _getUsers = createAsyncThunk(
+   '__get_users',
+  async(accesskey)=> {
+   try {
+      const response = await get(_USER._GET_USERS, accesskey)
+      return response
+
+   } catch (error) {
+      throw error
+   }
+  }
 )

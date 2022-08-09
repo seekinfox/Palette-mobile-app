@@ -15,14 +15,28 @@ export const getTodos = createAsyncThunk(
    }
 )
 
+// export const _createTodo = createAsyncThunk(
+//    'create__todo',
+//    async(data, token)=>{
+//       console.log(data, '-----------%')
+//       try {
+//          const response = await post(_TODO._CREATE, data, token)
+//          return response         
+//       } catch (error) {
+//          throw error
+//       }
+//    }
+// )
+
 export const _createTodo = createAsyncThunk(
-   'create__todo',
-   async(data, token)=>{
-      try {
-         const response = await post(_TODO._CREATE, data, token)
-         return response         
-      } catch (error) {
-         throw error
-      }
+   '__create_todos',
+  async({data , accesskey})=> {
+   try {
+      const response = await post(_TODO._CREATE, data, accesskey)
+      return response
+
+   } catch (error) {
+      throw error
    }
+  }
 )

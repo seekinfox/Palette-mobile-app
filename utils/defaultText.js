@@ -17,5 +17,6 @@ export const Alerts = {
    signupFailure: 'Failed to register user',
    loginFailure: 'Failed to Login',
    signUpSuccess: 'User registered successfully, please log in',
-   logOut: 'Are you sure you want to Logout?'
+   logOut: 'Are you sure you want to Logout?',
+   TodoCreateSuccess: 'Todo created'
 }

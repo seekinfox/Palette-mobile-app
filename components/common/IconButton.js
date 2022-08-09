@@ -41,6 +41,8 @@ const styles = StyleSheet.create({
       borderRadius: 100,
       padding : 5,
       elevation: 5,
+      minWidth: 45,
+      minHeight: 45,
       shadowColor: 'black',
       backgroundColor: colors.primarywhite,
    },
@@ -51,7 +53,6 @@ const styles = StyleSheet.create({
       fontSize: sizes.smallButton
    },
    icon : {
-      padding: 5,
       width: 35,
       justifyContent:'center',
       alignItems:'center'
