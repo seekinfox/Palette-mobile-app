@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableWithoutFeedback } from 'react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 import { colors } from '../utils/colors'
@@ -16,6 +16,7 @@ export default function TodoItem({item}) {
       navigationRef('TodoDetails', {id: item.id})
    }
   return (
+   <TouchableWithoutFeedback>
     <View style={{
       ...styles.todoItem__container, 
       backgroundColor: item.status === 'overdue' ? colors.redOOf : colors.primarywhite
@@ -48,6 +49,7 @@ export default function TodoItem({item}) {
          </View>
       </View>
     </View>
+   </TouchableWithoutFeedback>
   )
 }
 

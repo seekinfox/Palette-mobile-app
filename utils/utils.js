@@ -4,11 +4,11 @@ import axios from "axios"
 import { BASE } from "../redux/urls"
 import { STORAGE_KEY } from "./defaultText"
 
-export const getuser = async(setAccessToken)=>{
+export const getuser = async(setAccessToken, setUser)=>{
    try {
       const response = await AsyncStorage.getItem(STORAGE_KEY)  
-      // console.log(JSON.parse(response).accessToken, "%")
-      setAccessToken(JSON.parse(response).accessToken)       
+      setAccessToken(JSON.parse(response).accessToken)
+      if(setUser) setUser(JSON.parse(response).user)     
    } catch (error) {
    }
 }

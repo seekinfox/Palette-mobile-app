@@ -4,6 +4,7 @@ export const colors = {
    redOff: 'rgba(224, 56, 56, 0.7)',
    redOOf: '#ffdede',
    blackWashed: '#4b5d6b',
+   blackWashedDark: '#4B5D6B',
    blackPrimary: '#2B2A29',
    primarywhite: '#FFFF',
    primaryRed: '#E03838',
@@ -12,5 +13,6 @@ export const colors = {
    orangeWashed: '#f7d7c0',
    primaryGreen: '#0092aa',
    primaryPurple: '#a5a9ed',
+   primaryPurpleDark: '#6c67f2',
 
 }

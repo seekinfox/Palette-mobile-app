@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { Box , Alert as AB, HStack} from 'native-base'
 
-export default function Alert({alert}) {
+export default function Alert({alert, style}) {
    
   return (
    alert.visible ?
@@ -10,6 +10,7 @@ export default function Alert({alert}) {
          position: 'absolute',
          left: 10,
          top: 40,
+         ...style
       }}>
          <AB w="100%" variant={'subtle'} colorScheme="success" status={alert.status}>
             <HStack>

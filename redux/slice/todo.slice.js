@@ -29,6 +29,10 @@ const todo = createSlice({
       },
       resetCreateTodo:(state, action) => {
          state.createTodo= {}
+      },
+      resetCreateTodoLoaders:(state) =>{
+         state.loaders.createTodo = false;
+         state.loaders.createTodoFailure = state.loaders.createTodoSuccess = false;
       }
    },
    extraReducers: (builder) => {
@@ -38,7 +42,7 @@ const todo = createSlice({
       })
       builder.addCase(getTodos.fulfilled, (state, {payload})=>{
          state.loaders.getTodosSuccess = true;
-         console.log(payload)
+
          state.allTodosDetails = payload.data.allToDos.map(item => {
             return {
                id: item._id,
@@ -52,7 +56,7 @@ const todo = createSlice({
             }
          })
       })
-      builder.addCase(getTodos.rejected, (state, action)=>{
+      builder.addCase(getTodos.rejected, (action)=>{
          console.log(action)
       })
 
@@ -61,22 +65,21 @@ const todo = createSlice({
          state.loaders.createTodo = true;
          state.loaders.createTodoSuccess = state.loaders.createTodoFailure = false
       })
-      .addCase(_createTodo.fulfilled, (state, {payload})=>{
+      .addCase(_createTodo.fulfilled, (state)=>{
          state.loaders.createTodoSuccess = true;
          state.loaders.createTodo = state.loaders.createTodoFailure = false
-         console.log('todo created')
       })
-      .addCase(_createTodo.rejected, (state, action)=>{
+      .addCase(_createTodo.rejected, (state)=>{
          state.loaders.createTodoFailure = true;
          state.loaders.createTodoSuccess = state.loaders.createTodo= false
-         console.log('todo rejected')
       })
    }
 })
 
 export const {
    createTodoInputs,
-   resetCreateTodo
+   resetCreateTodo,
+   resetCreateTodoLoaders
 } = todo.actions
 
 
